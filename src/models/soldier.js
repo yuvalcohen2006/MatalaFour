@@ -12,15 +12,18 @@ const soldierSchema = mongoose.Schema({
   age: {
     type: Number,
     required: true,
-    trim: true,
   },
   team: {
     type: String,
     required: true,
     trim: true,
   },
-  pazamInMonths: {
+  serviceNumber: {
     type: Number,
+    required: true,
+  },
+  recruitmentDate: {
+    type: Date,
     required: true,
   },
   isLeader: {
@@ -41,6 +44,8 @@ const soldierSchema = mongoose.Schema({
     type: String,
     required: true,
     trim: true,
+    minlength: 8,
+    maxlength: 20,
   },
   tokens: [
     {
@@ -49,7 +54,7 @@ const soldierSchema = mongoose.Schema({
   ],
 });
 
-soldierSchema.methods.toJson = async function () {
+soldierSchema.methods.toJSON = function () {
   const soldierObj = this.toObject();
 
   delete soldierObj.password;

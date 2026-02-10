@@ -6,15 +6,6 @@ const Team = mongoose.model("Team", {
     required: true,
     trim: true,
   },
-  leader: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    trim: true,
-  },
-  size: {
-    type: Number,
-    required: true,
-  },
   description: {
     type: String,
     required: true,

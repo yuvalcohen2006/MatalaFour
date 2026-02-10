@@ -4,7 +4,7 @@ const Soldier = require("../models/soldier");
 const auth = async (req, res, next) => {
   try {
     const token = req.header("Authorization").replace("Bearer ", "");
-    const decoded = jwt.verify(token, "supersecret");
+    const decoded = jwt.verify(token, process.env.SECRET);
     const soldier = await Soldier.findOne({
       _id: decoded._id,
       "tokens.token": token,
@@ -15,7 +15,7 @@ const auth = async (req, res, next) => {
     req.soldier = soldier;
     next();
   } catch (e) {
-    res.send("Please Authenticate first.");
+    res.status(400).send("Authenticate yourself.");
   }
 };
 

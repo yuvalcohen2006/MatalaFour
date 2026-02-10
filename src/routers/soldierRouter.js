@@ -105,13 +105,10 @@ router.get("/tseirim", async (req, res) => {
 
     const soldiers = await Soldier.find({
       recruitmentDate: { $gte: oneYearFromNow },
-    });
-
-    const splitFivesArray = [];
-    for (let i = 0; i < soldiers.length; i += 5) {
-      splitFivesArray.push(soldiers.slice(i, i + 5));
-    }
-    res.send(splitFivesArray);
+    })
+      .limit(5)
+      .skip(parseInt(req.query.skip) || 0);
+    res.send(soldiers);
   } catch (e) {
     res.status(statusCodes.serverError).send(e);
   }
